@@ -36,6 +36,9 @@ async function semanticRelease ({ preset, token, dryRun = false, skipNotificatio
 
   config.repository = getPkgRepo(packageData);
 
+  // add custom user
+  if (process.env.GITLAB_USER) config.repository.user = process.env.GITLAB_USER
+
   const tags = await gitSemverTags();
   if (tags.length === 0) {
     debug('no tags found');

@@ -1,8 +1,8 @@
 'use strict';
 
 const { promisify } = require('util');
-const conventionalGitlabReleaser = promisify(require('conventional-gitlab-releaser'));
-const debug = require('debug')('semantic-delivery-gitlab');
+const conventionalGitlabReleaser = promisify(require('./conventional-gitlab-releaser/src'));
+const debug = require('debug')('./conventional-gitlab-releaser/src');
 
 module.exports = releaser;
 
@@ -15,6 +15,7 @@ async function releaser ({ dryRun, preset, repository, token }) {
   };
 
   debug('posting release to \'%s\' using preset \'%s\'', auth.url, preset);
+  debug('posting release by \'%s\' on \'%s\'', user, project);
 
   // Placed after all other code so that sanity checking has had a chance to run.
   if (dryRun) {
